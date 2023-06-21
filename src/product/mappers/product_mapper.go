@@ -14,30 +14,29 @@ func NewProductMapper() product.IProductMapper {
 }
 
 func (mapper ProductMapper) ToGetProductByIDResponse(data models.Product) (res presenters.GetProductByIDResponse) {
-	var username []string
-	var gender []string
-	var skinType []string
-	var skinColor []string
-	var descReview []string
+	var descReview presenters.DataReview
+	var descReviews []presenters.DataReview
 	jumlahReview := 0
 
 	for _, v := range data.ProductReview {
-		username = append(username, v.Member.Username)
-		gender = append(gender, v.Member.Gender)
-		skinType = append(skinType, v.Member.Skintype)
-		skinColor = append(skinColor, v.Member.Skincolor)
-		descReview = append(descReview, v.DescReview)
+
+		descReview = presenters.DataReview{
+			Username:   v.Member.Username,
+			Gender:     v.Member.Gender,
+			SkinType:   v.Member.Skintype,
+			SkinColor:  v.Member.Skincolor,
+			DescReview: v.DescReview,
+			TotalLike:  len(v.LikeReview),
+		}
+		descReviews = append(descReviews, descReview)
 		jumlahReview = jumlahReview + len(v.LikeReview)
+
 	}
 
 	res = presenters.GetProductByIDResponse{
 		ID:               data.ID,
-		Username:         username,
-		Gender:           gender,
-		SkinType:         skinType,
-		SkinColor:        skinColor,
-		DescReview:       descReview,
-		JumlahLikeReview: jumlahReview,
+		DataReviews:      descReviews,
+		TotalLikeReviews: jumlahReview,
 	}
 	return res
 }
