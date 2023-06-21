@@ -41,13 +41,12 @@ func initEcho() *echo.Echo {
 
 	e.Validator = &presenters.CustomValidator{Validator: validate}
 
-	// Middleware
 	e.Use(middleware.Recover())
 	e.Use(middleware.RequestID())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://localhost:3000"},
-		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
-		AllowHeaders:     []string{"Content-Type", "Authorization"},
+		AllowOrigins:     []string{constants.ConstantOriginCORS},
+		AllowMethods:     []string{constants.ConstantMethodCORS},
+		AllowHeaders:     []string{constants.ConstantHeaderCORS},
 		AllowCredentials: true,
 	}))
 
@@ -55,8 +54,6 @@ func initEcho() *echo.Echo {
 		Format:           `{"time":"${time_rfc3339}","method":"${method}","uri":"${uri}","status":${status},"latency_human":"${latency_human}"}` + "\n",
 		CustomTimeFormat: "2006-01-02T15:04:05.000Z07:00",
 	}))
-
-	log.Println("origin: ", os.Getenv(constants.ConstantOriginCORS))
 
 	return e
 }

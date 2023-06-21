@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"gorm.io/gorm"
-	"time"
 )
 
 type ProductRepository struct {
@@ -136,7 +135,12 @@ func (repo ProductRepository) DeleteProductReviewByID(ProductReviewID string) er
 		return err
 	}
 
-	if err := repo.sqlDB.Model(&productReview).Update("deleted_at", time.Now()).Error; err != nil {
+	// Disable soft delete product review
+	//if err := repo.sqlDB.Model(&productReview).Update("deleted_at", time.Now()).Error; err != nil {
+	//	return err
+	//}
+
+	if err := repo.sqlDB.Where("id = ?", ProductReviewID).Delete(&models.ProductReview{}).Error; err != nil {
 		return err
 	}
 
@@ -158,10 +162,13 @@ func (repo ProductRepository) CancelLikeReview(likeReviewID string) error {
 		}
 		return err
 	}
+	// Disable soft delete like review
+	//if err := repo.sqlDB.Model(&likeReview).Update("deleted_at", time.Now()).Error; err != nil {
+	//	return err
+	//}
 
-	if err := repo.sqlDB.Model(&likeReview).Update("deleted_at", time.Now()).Error; err != nil {
+	if err := repo.sqlDB.Where("id = ?", likeReviewID).Delete(&models.LikeReview{}).Error; err != nil {
 		return err
 	}
-
 	return nil
 }

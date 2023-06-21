@@ -8,6 +8,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"log"
 	"os"
 	"time"
 )
@@ -25,6 +26,7 @@ type GormLibrary struct {
 	MinPool            int
 	LogMode            int
 }
+type mysqlLogger struct{}
 
 func (lib GormLibrary) Migrate(db *sql.DB) (err error) {
 
@@ -49,6 +51,7 @@ func (lib GormLibrary) Migrate(db *sql.DB) (err error) {
 
 	return err
 }
+
 func (lib GormLibrary) ConnectAndValidate() (db *gorm.DB, sql *sql.DB, err error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		lib.DBUser,
@@ -61,6 +64,7 @@ func (lib GormLibrary) ConnectAndValidate() (db *gorm.DB, sql *sql.DB, err error
 	logConfig := logger.Config{
 		SlowThreshold: time.Second,
 		Colorful:      true,
+		LogLevel:      logger.Info,
 	}
 	switch lib.LogMode {
 	case 1:
@@ -76,11 +80,12 @@ func (lib GormLibrary) ConnectAndValidate() (db *gorm.DB, sql *sql.DB, err error
 		logConfig = logger.Config{}
 	}
 
-	config := &gorm.Config{
-		Logger: logger.Default.LogMode(logger.LogLevel(lib.LogMode)),
-	}
+	//config := &gorm.Config{
+	//	Logger: logger.Default.LogMode(logger.LogLevel(lib.LogMode)),
+	//}
+	gormConfig := gorm.Config{Logger: logger.New(log.New(os.Stdout, "\r\n", log.LstdFlags), logConfig)}
 
-	db, err = gorm.Open(mysql.Open(dsn), config)
+	db, err = gorm.Open(mysql.Open(dsn), &gormConfig)
 	if err != nil {
 		return nil, nil, err
 	}

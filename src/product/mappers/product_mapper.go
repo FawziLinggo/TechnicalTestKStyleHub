@@ -19,7 +19,6 @@ func (mapper ProductMapper) ToGetProductByIDResponse(data models.Product) (res p
 	jumlahReview := 0
 
 	for _, v := range data.ProductReview {
-
 		descReview = presenters.DataReview{
 			Username:   v.Member.Username,
 			Gender:     v.Member.Gender,
@@ -35,6 +34,8 @@ func (mapper ProductMapper) ToGetProductByIDResponse(data models.Product) (res p
 
 	res = presenters.GetProductByIDResponse{
 		ID:               data.ID,
+		Name:             data.Name,
+		Price:            data.Price,
 		DataReviews:      descReviews,
 		TotalLikeReviews: jumlahReview,
 	}
