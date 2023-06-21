@@ -3,13 +3,16 @@ package libraries
 import (
 	"TechnicalTestKStyleHub/app/constants"
 	"database/sql"
+	"errors"
 	"fmt"
 	migrate "github.com/rubenv/sql-migrate"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -104,4 +107,39 @@ func (lib GormLibrary) ConnectAndValidate() (db *gorm.DB, sql *sql.DB, err error
 	}
 
 	return db, sqlDB, err
+}
+
+func (lib GormLibrary) InitMigrationFromFile(db *gorm.DB, filePath string) error {
+	fileContent, err := ioutil.ReadFile(filePath)
+
+	if err != nil {
+		return err
+	}
+
+	var count int64
+	result := db.Table("member").Count(&count)
+	if result.Error != nil {
+		return result.Error
+	}
+	if count == 0 {
+		sqlCommands := strings.Split(string(fileContent), ";")
+
+		for _, cmd := range sqlCommands {
+			sql := strings.TrimSpace(cmd)
+
+			if sql != "" {
+				result := db.Exec(sql)
+
+				if result.Error != nil {
+					return result.Error
+				}
+
+				if result.RowsAffected == 0 {
+					return errors.New("failed to execute SQL command: " + sql)
+				}
+			}
+		}
+	}
+
+	return nil
 }

@@ -71,5 +71,10 @@ func LoadConfiguration() (config Config, err error) {
 		return config, err
 	}
 
+	err = gormLibrary.InitMigrationFromFile(config.Sql.DB, "../../sqlFile/init.sql")
+	if err != nil {
+		return config, err
+	}
+
 	return config, err
 }

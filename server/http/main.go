@@ -35,7 +35,6 @@ func main() {
 			log.Fatal("Error while close connection, ", err.Error())
 		}
 	}(config.Sql.Connection)
-
 	app := initEcho()
 
 	initRouter(app, config)

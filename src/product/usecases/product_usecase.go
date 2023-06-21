@@ -6,7 +6,6 @@ import (
 	"TechnicalTestKStyleHub/domain/models"
 	"TechnicalTestKStyleHub/domain/presenters"
 	product "TechnicalTestKStyleHub/src/product"
-	"log"
 	"net/http"
 	"time"
 )
@@ -44,7 +43,6 @@ func (uc ProductUsecase) GetProductByID(productID string) (res presenters.GetPro
 	}
 
 	res = uc.iProductMapper.ToGetProductByIDResponse(data)
-	log.Println("data", data)
 
 	return res, helpers.NewBasicErrorDetail(http.StatusOK, constants.MessageSuccess, nil)
 }
