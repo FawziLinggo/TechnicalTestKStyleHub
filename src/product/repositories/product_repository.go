@@ -27,8 +27,9 @@ func (repo ProductRepository) GetProducts() (data []presenters.GetProductRespons
 	}
 	for _, v := range data2 {
 		data = append(data, presenters.GetProductResponse{
-			ID:   v.ID,
-			Name: v.Name,
+			ID:    v.ID,
+			Name:  v.Name,
+			Price: v.Price,
 		})
 	}
 
@@ -84,7 +85,6 @@ func (repo ProductRepository) DeleteProductByID(ProductID string) (err error) {
 func (repo ProductRepository) GetProductReviews() (data []presenters.GetProductReviewResponse, err error) {
 	var data2 []models.ProductReview
 
-	// using gorm
 	if res := repo.sqlDB.Model(models.ProductReview{}).Find(&data2); res.Error != nil {
 		return data, res.Error
 	}
@@ -115,7 +115,6 @@ func (repo ProductRepository) CreateProductReview(data *models.ProductReview) (e
 }
 
 func (repo ProductRepository) EditProductReviewByID(ProductReviewID string, data *models.ProductReview) (err error) {
-	// check if data is not exist
 	queryCheck := repo.sqlDB.Where("id = ?", ProductReviewID).First(&models.ProductReview{})
 
 	if queryCheck.Error != nil {
@@ -152,7 +151,6 @@ func (repo ProductRepository) CreateLikeReview(data *models.LikeReview) (err err
 }
 
 func (repo ProductRepository) CancelLikeReview(likeReviewID string) error {
-	// Check if data exists
 	var likeReview models.LikeReview
 	if err := repo.sqlDB.First(&likeReview, "id = ?", likeReviewID).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -161,7 +159,6 @@ func (repo ProductRepository) CancelLikeReview(likeReviewID string) error {
 		return err
 	}
 
-	// Soft delete by updating delete_at column
 	if err := repo.sqlDB.Model(&likeReview).Update("deleted_at", time.Now()).Error; err != nil {
 		return err
 	}

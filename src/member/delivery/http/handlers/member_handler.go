@@ -22,8 +22,6 @@ func NewMemberHandler(IMemberUseCase member.IMemberUseCase) MemberHandler {
 // @Description Get All Member
 // @Tags Member
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions.apiKey JWT=Authorization
 // @Success 200 {object} []presenters.GetMemberResponse
 // @Failure 401 {object} presenters.BasicResponse
 // @Failure 500 {object} presenters.BasicResponse
@@ -50,8 +48,6 @@ func (handler MemberHandler) GetMember(ctx echo.Context) error {
 // @Description Create Stock Data Pages
 // @Tags Confluent
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions.apiKey JWT=Authorization
 // @Param body presenters.CreateMemberRequest true "body"
 // @Success 200 {object} presenters.BasicResponse
 // @Failure 401 {object} presenters.BasicResponse
@@ -84,8 +80,6 @@ func (handler MemberHandler) CreateMember(ctx echo.Context) error {
 // @Description Edit Member By ID
 // @Tags Member
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions apikey JWT=Authorization
 // @Param id path string true "id"
 // @Param body presenters.EditMemberByIDRequest true "body"
 // @Success 200 {object} BasicResponse
@@ -119,8 +113,6 @@ func (handler MemberHandler) EditMemberByID(ctx echo.Context) error {
 // @Description Delete Member By ID
 // @Tags Member
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions apikey JWT=Authorization
 // @Param id path string true "id"
 // @Success 200 {object} BasicResponse
 // @Failure 401 {object} BasicResponse

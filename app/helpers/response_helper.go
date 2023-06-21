@@ -24,33 +24,14 @@ func NewBasicErrorDetailWithData(code int, message string, err error, data prese
 
 func NewBasicResponse(ctx echo.Context, code int, status bool, err error, message string) error {
 
-	// error message system
 	var errMsg string
 	if err != nil {
 		errMsg = err.Error()
 	}
 
-	// res
 	return ctx.JSON(code, presenters.BasicResponse{
 		Status:  status,
 		Error:   errMsg,
 		Message: message,
-	})
-}
-
-func NewBasicResponseWithData(ctx echo.Context, code int, status bool, err error, message string, data presenters.CreateEditResponse) error {
-
-	// error message system
-	var errMsg string
-	if err != nil {
-		errMsg = err.Error()
-	}
-
-	// res
-	return ctx.JSON(code, presenters.BasicResponse{
-		Status:  status,
-		Error:   errMsg,
-		Message: message,
-		Data:    data,
 	})
 }

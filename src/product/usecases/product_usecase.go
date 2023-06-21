@@ -28,7 +28,6 @@ func NewProductUseCase(
 
 func (uc ProductUsecase) GetProduct() (res []presenters.GetProductResponse, errDetail presenters.ErrorDetail) {
 
-	// repo
 	res, err := uc.iProductRepository.GetProducts()
 	if err != nil {
 		return res, helpers.NewBasicErrorDetail(http.StatusInternalServerError, err.Error(), err)
@@ -39,13 +38,11 @@ func (uc ProductUsecase) GetProduct() (res []presenters.GetProductResponse, errD
 
 func (uc ProductUsecase) GetProductByID(productID string) (res presenters.GetProductByIDResponse, errDetail presenters.ErrorDetail) {
 
-	// repo
 	data, err := uc.iProductRepository.GetProductByID(productID)
 	if err != nil {
 		return res, helpers.NewBasicErrorDetail(http.StatusInternalServerError, err.Error(), err)
 	}
 
-	// mapper
 	res = uc.iProductMapper.ToGetProductByIDResponse(data)
 	log.Println("data", data)
 
@@ -54,7 +51,6 @@ func (uc ProductUsecase) GetProductByID(productID string) (res presenters.GetPro
 
 func (uc ProductUsecase) CreateProduct(input *presenters.CreateProductRequest) (errDetail presenters.ErrorDetail) {
 
-	//  model
 	now := time.Now()
 	data := models.Product{
 		Name:      input.Name,
@@ -63,7 +59,6 @@ func (uc ProductUsecase) CreateProduct(input *presenters.CreateProductRequest) (
 		UpdatedAt: now,
 	}
 
-	// repo
 	err := uc.iProductRepository.CreateProduct(&data)
 	if err != nil {
 		return helpers.NewBasicErrorDetail(http.StatusInternalServerError, err.Error(), err)
@@ -73,7 +68,6 @@ func (uc ProductUsecase) CreateProduct(input *presenters.CreateProductRequest) (
 }
 
 func (uc ProductUsecase) EditProductByID(input *presenters.EditProductByIDRequest) (errDetail presenters.ErrorDetail) {
-	// model
 	now := time.Now()
 
 	data := models.Product{
@@ -99,7 +93,6 @@ func (uc ProductUsecase) DeleteProductByID(id string) (errDetail presenters.Erro
 
 func (uc ProductUsecase) GetProductReview() (res []presenters.GetProductReviewResponse, errDetail presenters.ErrorDetail) {
 
-	// repo
 	res, err := uc.iProductRepository.GetProductReviews()
 	if err != nil {
 		return res, helpers.NewBasicErrorDetail(http.StatusInternalServerError, err.Error(), err)
@@ -110,7 +103,6 @@ func (uc ProductUsecase) GetProductReview() (res []presenters.GetProductReviewRe
 
 func (uc ProductUsecase) CreateProductReview(input *presenters.CreateProductReviewRequest) (errDetail presenters.ErrorDetail) {
 
-	//  model
 	now := time.Now()
 	data := models.ProductReview{
 		ProductID:  input.ProductID,
@@ -120,7 +112,6 @@ func (uc ProductUsecase) CreateProductReview(input *presenters.CreateProductRevi
 		UpdatedAt:  now,
 	}
 
-	// repo
 	err := uc.iProductRepository.CreateProductReview(&data)
 	if err != nil {
 		return helpers.NewBasicErrorDetail(http.StatusInternalServerError, err.Error(), err)
@@ -130,7 +121,6 @@ func (uc ProductUsecase) CreateProductReview(input *presenters.CreateProductRevi
 }
 
 func (uc ProductUsecase) EditProductReviewByID(input *presenters.EditProductReviewByIDRequest) (errDetail presenters.ErrorDetail) {
-	// model
 	now := time.Now()
 
 	data := models.ProductReview{
@@ -158,7 +148,6 @@ func (uc ProductUsecase) DeleteProductReviewByID(id string) (errDetail presenter
 
 func (uc ProductUsecase) CreateLikeReview(input *presenters.CreateLikeReviewRequest) (errDetail presenters.ErrorDetail) {
 
-	//  model
 	now := time.Now()
 	data := models.LikeReview{
 		ProductReviewID: input.ProductReviewID,
@@ -167,7 +156,6 @@ func (uc ProductUsecase) CreateLikeReview(input *presenters.CreateLikeReviewRequ
 		UpdatedAt:       now,
 	}
 
-	// repo
 	err := uc.iProductRepository.CreateLikeReview(&data)
 	if err != nil {
 		return helpers.NewBasicErrorDetail(http.StatusInternalServerError, err.Error(), err)
@@ -178,7 +166,6 @@ func (uc ProductUsecase) CreateLikeReview(input *presenters.CreateLikeReviewRequ
 
 func (uc ProductUsecase) CancelLikeReview(likeReviewID string) (errDetail presenters.ErrorDetail) {
 
-	// repo
 	err := uc.iProductRepository.CancelLikeReview(likeReviewID)
 	if err != nil {
 		return helpers.NewBasicErrorDetail(http.StatusInternalServerError, err.Error(), err)

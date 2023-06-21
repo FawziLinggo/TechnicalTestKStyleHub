@@ -22,8 +22,6 @@ func NewProductHandler(IProductUseCase product.IProductUseCase) ProductHandler {
 // @Description Get All Product
 // @Tags Product
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions.apiKey JWT=Authorization
 // @Success 200 {object} []presenters.GetProductResponse
 // @Failure 401 {object} presenters.BasicResponse
 // @Failure 500 {object} presenters.BasicResponse
@@ -43,8 +41,6 @@ func (handler ProductHandler) GetProduct(ctx echo.Context) error {
 // @Description Get Product By ID
 // @Tags Product
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions.apiKey JWT=Authorization
 // @Param id path string true "id"
 // @Success 200 {object} []presenters.GetProductResponse
 // @Failure 401 {object} presenters.BasicResponse
@@ -68,8 +64,6 @@ func (handler ProductHandler) GetProductByID(ctx echo.Context) error {
 // @Description Create Stock Data Pages
 // @Tags Confluent
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions.apiKey JWT=Authorization
 // @Param body presenters.CreateProductRequest true "body"
 // @Success 200 {object} presenters.BasicResponse
 // @Failure 401 {object} presenters.BasicResponse
@@ -102,8 +96,6 @@ func (handler ProductHandler) CreateProduct(ctx echo.Context) error {
 // @Description Edit Product By ID
 // @Tags Product
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions apikey JWT=Authorization
 // @Param id path string true "id"
 // @Param body presenters.EditProductByIDRequest true "body"
 // @Success 200 {object} BasicResponse
@@ -137,8 +129,6 @@ func (handler ProductHandler) EditProductByID(ctx echo.Context) error {
 // @Description Delete Product By ID
 // @Tags Product
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions apikey JWT=Authorization
 // @Param id path string true "id"
 // @Success 200 {object} BasicResponse
 // @Failure 401 {object} BasicResponse
@@ -171,8 +161,6 @@ func (handler ProductHandler) DeleteProductByID(ctx echo.Context) error {
 // @Description Get All ProductReview
 // @Tags ProductReview
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions.apiKey JWT=Authorization
 // @Success 200 {object} []presenters.GetProductReviewResponse
 // @Failure 401 {object} presenters.BasicResponse
 // @Failure 500 {object} presenters.BasicResponse
@@ -192,8 +180,6 @@ func (handler ProductHandler) GetProductReview(ctx echo.Context) error {
 // @Description Create Stock Data Pages
 // @Tags Confluent
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions.apiKey JWT=Authorization
 // @Param body presenters.CreateProductReviewRequest true "body"
 // @Success 200 {object} presenters.BasicResponse
 // @Failure 401 {object} presenters.BasicResponse
@@ -226,8 +212,6 @@ func (handler ProductHandler) CreateProductReview(ctx echo.Context) error {
 // @Description Edit ProductReview By ID
 // @Tags ProductReview
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions apikey JWT=Authorization
 // @Param id path string true "id"
 // @Param body presenters.EditProductReviewByIDRequest true "body"
 // @Success 200 {object} BasicResponse
@@ -261,8 +245,6 @@ func (handler ProductHandler) EditProductReviewByID(ctx echo.Context) error {
 // @Description Delete ProductReview By ID
 // @Tags ProductReview
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions apikey JWT=Authorization
 // @Param id path string true "id"
 // @Success 200 {object} BasicResponse
 // @Failure 401 {object} BasicResponse
@@ -295,8 +277,6 @@ func (handler ProductHandler) DeleteProductReviewByID(ctx echo.Context) error {
 // @Description Create LikeReview
 // @Tags LikeReview
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions apikey JWT=Authorization
 // @Param body CreateLikeReviewRequest true "body"
 // @Success 200 {object} BasicResponse
 // @Failure 401 {object} BasicResponse
@@ -329,8 +309,6 @@ func (handler ProductHandler) CreateLikeReview(ctx echo.Context) error {
 // @Description Delete LikeReview
 // @Tags LikeReview
 // @Accept json
-// @Security JWTAuth
-// @SecurityDefinitions apikey JWT=Authorization
 // @Param body DeleteLikeReviewRequest true "body"
 // @Success 200 {object} BasicResponse
 // @Failure 401 {object} BasicResponse

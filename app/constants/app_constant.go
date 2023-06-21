@@ -6,13 +6,3 @@ const (
 	ConstantMethodCORS  = "GET,POST,HEAD,PUT,DELETE,PATCH"
 	ConstantHeaderCORS  = "Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, Cache-Control, X-Requested-With, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Credentials"
 )
-
-const (
-	Authorization       = "Authorization"
-	AuthorizationBearer = "Bearer"
-	AuthorizationBasic  = "Basic"
-)
-
-const (
-	ContextUserData = "user_data"
-)

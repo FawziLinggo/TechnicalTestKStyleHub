@@ -26,8 +26,6 @@ func NewMemberUseCase(
 }
 
 func (uc MemberUsecase) GetMember() (res []presenters.GetMemberResponse, errDetail presenters.ErrorDetail) {
-
-	// repo
 	res, err := uc.iMemberRepository.GetMembers()
 	if err != nil {
 		return res, helpers.NewBasicErrorDetail(http.StatusInternalServerError, err.Error(), err)
@@ -37,8 +35,6 @@ func (uc MemberUsecase) GetMember() (res []presenters.GetMemberResponse, errDeta
 }
 
 func (uc MemberUsecase) CreateMember(input *presenters.CreateMemberRequest) (errDetail presenters.ErrorDetail) {
-
-	//  model
 	now := time.Now()
 	data := models.Member{
 		Username:  input.Username,
@@ -49,7 +45,6 @@ func (uc MemberUsecase) CreateMember(input *presenters.CreateMemberRequest) (err
 		UpdatedAt: now,
 	}
 
-	// repo
 	err := uc.iMemberRepository.CreateMember(&data)
 	if err != nil {
 		return helpers.NewBasicErrorDetail(http.StatusInternalServerError, err.Error(), err)

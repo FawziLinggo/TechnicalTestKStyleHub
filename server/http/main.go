@@ -19,30 +19,24 @@ import (
 
 func main() {
 
-	// Load Configuration
 	config, err := domain.LoadConfiguration()
 	if err != nil {
 		log.Fatal("Error while load configuration, ", err.Error())
 	}
 	defer config.Sql.Connection.Close()
 
-	// init setup fiber
 	app := initEcho()
 
-	// init router
 	initRouter(app, config)
 
-	// Listening Http
 	if err = app.Start(fmt.Sprintf(":%s", os.Getenv(constants.EnvironmentAppRestPort))); err != nil {
 		log.Fatal("Error while listening http protocol, ", err.Error())
 	}
 }
 
 func initEcho() *echo.Echo {
-	// Create a new Echo instance
 	e := echo.New()
 
-	// Validator
 	validate := validator.New()
 
 	e.Validator = &presenters.CustomValidator{Validator: validate}
@@ -74,9 +68,6 @@ func initEcho() *echo.Echo {
 // @Contact.email  fawzilinggo@google.com
 // @Host           localhost
 // @Schemes		   http
-// @SecurityDefinitions.apiKey JWT
-// @in Cookie
-// @name jwt
 // @BasePath       /
 func initRouter(e *echo.Echo, config domain.Config) {
 	// Router for health check

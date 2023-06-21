@@ -18,7 +18,6 @@ func NewMemberRepository(sqlDB *gorm.DB) member.IMemberRepository {
 func (repo MemberRepository) GetMembers() (data []presenters.GetMemberResponse, err error) {
 	var data2 []models.Member
 
-	// using gorm
 	if res := repo.sqlDB.Model(models.Member{}).Find(&data2); res.Error != nil {
 		return data, res.Error
 	}
@@ -64,7 +63,6 @@ func (repo MemberRepository) EditMemberByID(MemberID string, data *models.Member
 }
 
 func (repo MemberRepository) DeleteMemberByID(MemberID string) (err error) {
-	// check if data is not exist
 	queryCheck := repo.sqlDB.Where("id = ?", MemberID).First(&models.Member{})
 
 	if queryCheck.Error != nil {

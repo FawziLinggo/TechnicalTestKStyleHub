@@ -1,9 +1,9 @@
 package presenters
 
 type GetProductResponse struct {
-	ID    string `json:"id" example:"c836c745-e1db-4777-9699-e40fffaa302d"`
-	Name  string `json:"name" example:"Product 1"`
-	Price string `json:"price" example:"100000"`
+	ID    string  `json:"id" example:"c836c745-e1db-4777-9699-e40fffaa302d"`
+	Name  string  `json:"name" example:"Product 1"`
+	Price float64 `json:"price" example:"100000"`
 }
 
 type GetProductByIDResponse struct {
