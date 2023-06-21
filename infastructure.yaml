@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root!P@ssw0rd#123
+      MYSQL_DATABASE: DataCenter
+      MYSQL_USER: administrator
+      MYSQL_PASSWORD: mypassword!
+    volumes:
+      - ~/docker-volume/dataKstyleHub:/var/lib/mysql
+    ports:
+      - "3306:3306"
